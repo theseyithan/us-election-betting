@@ -54,4 +54,26 @@ contract("ElectionBetting", async accounts => {
       "Betting period has ended"
     );
   });
+
+  it("should allow owner to resolve the election after betting has ended", async () => {
+    const endedElectionBetting = await ElectionBetting.new(pastTime, { from: owner });
+
+    const outcome = 1;
+    await endedElectionBetting.resolveElection(outcome, { from: owner });
+
+    const resolvedWinner = await endedElectionBetting.winner();
+    assert.equal(resolvedWinner.toString(), outcome, "Winner is incorrect");
+
+    const isResolved = await endedElectionBetting.electionResolved();
+    assert.equal(isResolved, true, "Election should be resolved");
+  });
+
+  it("should not allow non-owner to resolve the election", async () => {
+    const endedElectionBetting = await ElectionBetting.new(pastTime, { from: owner });
+
+    await truffleAssert.reverts(
+      endedElectionBetting.resolveElection(1, { from: hippie }),
+      "Only the owner can call this function"
+    );
+  });
 });
