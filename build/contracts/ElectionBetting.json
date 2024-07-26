@@ -1,0 +1,147 @@
+{
+  "contractName": "ElectionBetting",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ElectionBetting.sol\":\"ElectionBetting\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ElectionBetting.sol\":{\"keccak256\":\"0x36ff8f0762e469aa8aa2c1cfe4e3c710a7f2aaeb4a44825e940deac3f9ee3fe4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eee6af706d15ed24217d05d28d5d18471773daa51ce6e09c81f331bce3c5802b\",\"dweb:/ipfs/QmYThR8AhuKPaMo4dUs51o7PjJKxj2o3M8fPYPHTN2oHGp\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea26469706673582212204e5a237e0282e2785dc0ba0aa6f93516e58a590d7753d53901f30ab586ca217964736f6c63430008150033",
+  "deployedBytecode": "0x60806040525f80fdfea26469706673582212204e5a237e0282e2785dc0ba0aa6f93516e58a590d7753d53901f30ab586ca217964736f6c63430008150033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "57:133:0:-:0;;;129:59;;;;;;;;;;57:133;;;;;;",
+  "deployedSourceMap": "57:133:0:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract ElectionBetting {\n  enum Outcome { Democrat, Republican }\n  \n  constructor() public {\n    // TODO: Add the constructor\n  }\n}\n",
+  "sourcePath": "/Users/seyithan/Documents/me.seyithan/us-election-betting/contracts/ElectionBetting.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ElectionBetting.sol",
+    "exportedSymbols": {
+      "ElectionBetting": [
+        9
+      ]
+    },
+    "id": 10,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ElectionBetting",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 9,
+        "linearizedBaseContracts": [
+          9
+        ],
+        "name": "ElectionBetting",
+        "nameLocation": "66:15:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "ElectionBetting.Outcome",
+            "id": 4,
+            "members": [
+              {
+                "id": 2,
+                "name": "Democrat",
+                "nameLocation": "101:8:0",
+                "nodeType": "EnumValue",
+                "src": "101:8:0"
+              },
+              {
+                "id": 3,
+                "name": "Republican",
+                "nameLocation": "111:10:0",
+                "nodeType": "EnumValue",
+                "src": "111:10:0"
+              }
+            ],
+            "name": "Outcome",
+            "nameLocation": "91:7:0",
+            "nodeType": "EnumDefinition",
+            "src": "86:37:0"
+          },
+          {
+            "body": {
+              "id": 7,
+              "nodeType": "Block",
+              "src": "150:38:0",
+              "statements": []
+            },
+            "id": 8,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 5,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "140:2:0"
+            },
+            "returnParameters": {
+              "id": 6,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:0"
+            },
+            "scope": 9,
+            "src": "129:59:0",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10,
+        "src": "57:133:0",
+        "usedErrors": [],
+        "usedEvents": []
+      }
+    ],
+    "src": "32:159:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.21+commit.d9974bed.Emscripten.clang"
+  },
+  "networks": {
+    "1722034040172": {
+      "events": {},
+      "links": {},
+      "address": "0x8B3009838aD05f1A486b15c232a920aA6181d306",
+      "transactionHash": "0xcf5db08243cf99f138fed6051c242d728fff6b9adca1338ac2168e0d7d9ab58a"
+    }
+  },
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-07-26T22:51:36.442Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
