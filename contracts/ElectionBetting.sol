@@ -101,8 +101,4 @@ contract ElectionBetting {
 
     emit WinningsClaimed(msg.sender, winner, amountWon);
   }
-
-  // TODO: Implement function to calculate and update odds
-  // TODO: Implement function to get current betting odds
-
 }
