@@ -13,7 +13,10 @@ contract ElectionBetting {
   mapping(address => mapping(Outcome => uint)) public bets;
   mapping(Outcome => uint) public totalBets;
 
+  mapping(address => uint) public claimedWinnings;
+
   event BetPlaced(address indexed better, Outcome indexed outcome, uint amount);
+  event WinningsClaimed(address indexed claimant, Outcome indexed outcome, uint amount);
   event ElectionResolved(Outcome indexed winner);
 
   constructor(uint _bettingEndDateTime) {
@@ -50,7 +53,25 @@ contract ElectionBetting {
     emit ElectionResolved(_winner);
   }
 
-  // TODO: Implement function for users to claim winnings
+  function claimWinnings() external {
+    require(electionResolved, "You can only claim winnings after the election has been resolved");
+    require(claimedWinnings[msg.sender] == 0, "You have already claimed your winnings");
+    require(bets[msg.sender][winner] > 0, "You have no bets on the winning outcome");
+
+    uint winningAmount = bets[msg.sender][winner];
+    uint totalWinningBetsAmount = totalBets[winner];
+    uint totalBetsAmount = totalBets[Outcome.Democrat] + totalBets[Outcome.Republican];
+
+    uint amountWon = (winningAmount * totalBetsAmount) / totalWinningBetsAmount;
+    bets[msg.sender][winner] = 0;
+    claimedWinnings[msg.sender] = amountWon;
+
+    (bool success, ) = msg.sender.call{value: amountWon}("");
+    require(success, "Failed to send winnings to the better");
+
+    emit WinningsClaimed(msg.sender, winner, amountWon);
+  }
+
   // TODO: Implement function to calculate and update odds
   // TODO: Implement function to get current betting odds
 
