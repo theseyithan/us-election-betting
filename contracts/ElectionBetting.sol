@@ -10,8 +10,16 @@ contract ElectionBetting {
   bool public electionResolved;
   Outcome public winner;
 
+  uint constant ODDS_PRECISION = 1e18;
+  struct Odds {
+    uint democrat;
+    uint republican;
+  }
+
   mapping(address => mapping(Outcome => uint)) public bets;
   mapping(Outcome => uint) public totalBets;
+
+  mapping(Outcome => uint) public currentOdds;
 
   mapping(address => uint) public claimedWinnings;
 
@@ -22,6 +30,8 @@ contract ElectionBetting {
   constructor(uint _bettingEndDateTime) {
     owner = msg.sender;
     bettingEndDateTime = _bettingEndDateTime;
+
+    updateOdds();
   }
 
   modifier onlyOwner() {
@@ -40,7 +50,27 @@ contract ElectionBetting {
     bets[msg.sender][_outcome] += msg.value;
     totalBets[_outcome] += msg.value;
 
+    updateOdds();
+
     emit BetPlaced(msg.sender, _outcome, msg.value);
+  }
+
+  function updateOdds() internal {
+    uint totalBetsAmount = totalBets[Outcome.Democrat] + totalBets[Outcome.Republican];
+    if (totalBetsAmount == 0) {
+      currentOdds[Outcome.Democrat] = ODDS_PRECISION;
+      currentOdds[Outcome.Republican] = ODDS_PRECISION;
+    } else {
+      uint democratBets = totalBets[Outcome.Democrat] == 0 ? ODDS_PRECISION : totalBets[Outcome.Democrat];
+      uint republicanBets = totalBets[Outcome.Republican] == 0 ? ODDS_PRECISION : totalBets[Outcome.Republican];
+
+      currentOdds[Outcome.Democrat] = totalBetsAmount * ODDS_PRECISION / democratBets;
+      currentOdds[Outcome.Republican] = totalBetsAmount * ODDS_PRECISION / republicanBets;
+    }
+  }
+
+  function getOdds() external view returns (Odds memory) {
+    return Odds(currentOdds[Outcome.Democrat], currentOdds[Outcome.Republican]);
   }
 
   function resolveElection(Outcome _winner) external onlyOwner {

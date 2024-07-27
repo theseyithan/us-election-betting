@@ -114,6 +114,48 @@ contract("ElectionBetting", async accounts => {
     );
   });
 
+  it("should update odds correctly when bets are placed", async () => {
+    const betAmount1 = web3.utils.toWei('2', 'ether');
+    const betAmount2 = web3.utils.toWei('4', 'ether');
+
+    // 2 to democrat, 4 to republican would make odds 3 and 1.5 respectively
+
+    await electionBetting.placeBet(ElectionBetting.Outcome.Democrat, { from: hippie, value: betAmount1 });
+    await electionBetting.placeBet(ElectionBetting.Outcome.Republican, { from: redneck, value: betAmount2 });
+
+    const odds = await electionBetting.getOdds();
+
+    const expectedDemocratOdds = web3.utils.toWei('3', 'ether');
+    const expectedRepublicanOdds = web3.utils.toWei('1.5', 'ether');
+
+    assert.equal(odds.democrat.toString(), expectedDemocratOdds, "Democrat odds are incorrect");
+    assert.equal(odds.republican.toString(), expectedRepublicanOdds, "Republican odds are incorrect");
+  });
+
+  it("should return the odds correctly when there are no bets for one side", async () => {
+    const betAmount = web3.utils.toWei('2', 'ether');
+
+    await electionBetting.placeBet(ElectionBetting.Outcome.Democrat, { from: hippie, value: betAmount });
+
+    const odds = await electionBetting.getOdds();
+
+    const expectedDemocratOdds = web3.utils.toWei('1', 'ether');
+    const expectedRepublicanOdds = web3.utils.toWei('2', 'ether');
+
+    assert.equal(odds.democrat.toString(), expectedDemocratOdds, "Democrat odds are incorrect");
+    assert.equal(odds.republican.toString(), expectedRepublicanOdds, "Republican odds are incorrect");
+  });
+
+  it("should return the odds correctly when there are no bets", async () => {
+    const odds = await electionBetting.getOdds();
+
+    const expectedDemocratOdds = web3.utils.toWei('1', 'ether');
+    const expectedRepublicanOdds = web3.utils.toWei('1', 'ether');
+
+    assert.equal(odds.democrat.toString(), expectedDemocratOdds, "Democrat odds are incorrect");
+    assert.equal(odds.republican.toString(), expectedRepublicanOdds, "Republican odds are incorrect");
+  });
+
   it("should allow winner to withdraw their winnings", async () => {
     const betAmount = web3.utils.toWei('1', 'ether');
     const outcome = ElectionBetting.Outcome.Democrat;
