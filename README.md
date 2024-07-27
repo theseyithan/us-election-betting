@@ -2,6 +2,12 @@
 
 ElectionBetting is an Ethereum-based smart contract that allows users to place bets on the outcome of a US election. Users can bet on either a Democratic or Republican victory, with odds dynamically adjusting based on the distribution of bets.
 
+> [!CAUTION]
+> Please note that the ElectionBetting smart contract provided in this repository is intended for educational purposes only. It is not meant to be deployed or used for real-world online betting without obtaining the necessary permits and complying with local laws and regulations.
+> 
+> Please use this code responsibly and in accordance with the laws and regulations of your jurisdiction.
+
+
 ## Features
 
 - Place bets on Democratic or Republican victory

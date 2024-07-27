@@ -42,7 +42,7 @@ function ElectionBetting() {
       }
     };
 
-    init();
+    initWeb3();
   }, []);
 
   const getBettingEndDateTime = async (instance) => {
@@ -50,7 +50,7 @@ function ElectionBetting() {
     setBettingEndDateTime(new Date(bettingEndDateTime * 1000).toString());
   };
 
-  const getOdds = async (instance) => {
+  const getCurrentOdds = async (instance) => {
     const odds = await instance.methods.getOdds().call();
     setCurrentOdds({ 
       democrat: Web3.utils.fromWei(odds.democrat.toString(), 'ether'),
@@ -93,7 +93,7 @@ function ElectionBetting() {
       <h2>Place a Bet</h2>
       <button onClick={() => placeBet(0, 0.1)}>Bet 0.1 ETH on Democrat</button>
       <button onClick={() => placeBet(1, 0.1)}>Bet 0.1 ETH on Republican</button>
-      <button onClick={() => getOdds(contract)}>Refresh Odds</button>
+      <button onClick={() => getCurrentOdds(contract)}>Refresh Odds</button>
     </div>
   );
 }
